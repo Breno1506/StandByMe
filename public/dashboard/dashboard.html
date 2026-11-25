@@ -2,34 +2,28 @@
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StandByMe | Dashboard</title>
 
     <link rel="stylesheet" href="../css/dashboards.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="../js/loading.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="validarSessao(), buscarAvaliacoes(), buscarFavoritos()">
+<body onload="buscarAvaliacoes(), buscarFavoritos()">
 
     <div class="janela">
 
+        <!-- MENU LATERAL -->
         <div class="header-left">
-            <a href="../homePageLogada.html">
                 <h1>StandByMe</h1>
-            </a>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span></h3>
@@ -47,10 +41,11 @@
             </div>
 
             <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+                <h3>Logout</h3>
             </div>
         </div>
 
+        <!-- CONTEÚDO DA DASHBOARD -->
         <div class="dash">
 
             <div class="dash-topo">
@@ -73,12 +68,16 @@
             <div class="area-graficos">
                 <div class="caixa-grafico">
                     <h3>Comparação de avaliações</h3>
-                    <canvas id="graficoUsuarios"></canvas>
+                    <div style="position: relative; flex: 1; width: 100%; height: 100%;">
+                        <canvas id="graficoUsuarios"></canvas>
+                    </div>
                 </div>
 
                 <div class="caixa-grafico">
-                    <h3>Personagens favoritos</h3>
-                    <canvas id="graficoFavoritos"></canvas>
+                    <h3>Ranking de personagens favoritos</h3>
+                    <div style="position: relative; flex: 1; width: 100%; height: 100%;">
+                        <canvas id="graficoFavoritos"></canvas>
+                    </div>
                 </div>
             </div>
 
@@ -90,7 +89,6 @@
 </html>
 
 <script>
-    // 1. Nome do usuário na dashboard
     if (sessionStorage.NOME_USUARIO != undefined) {
         b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     }
@@ -100,25 +98,26 @@
         window.location.href = "../index.html";
     }
 
-    // ---------- DICIONÁRIOS ----------
+    // Cores bem vibrantes no tema arcade (rosa, branco, amarelo, ciano, roxo, verde)
     var coresPersonagens = {
-        "Jonathan Joestar": "#4361ee",
-        "Joseph Joestar": "#2a9d8f",
-        "Jotaro Kujo": "#3a86ff",
-        "Josuke Higashikata": "#f72585",
-        "Giorno Giovanna": "#f5c518",
-        "Jolyne Cujoh": "#9d4edd",
-        "Johnny Joestar": "#ff7f11",
-        "Josuke Higashikata (Parte 8)": "#06d6a0",
-        "Jodio Joestar": "#ef233c"
+        "Jonathan Joestar": "#ffffff",
+        "Joseph Joestar": "#00ffff",
+        "Jotaro Kujo": "#ff2a85",
+        "Josuke Higashikata": "#f5c518",
+        "Giorno Giovanna": "#bf00ff",
+        "Jolyne Cujoh": "#00ff66",
+        "Johnny Joestar": "#ff5500",
+        "Josuke Higashikata (Parte 8)": "#00bcd4",
+        "Jodio Joestar": "#e91e63"
     };
+
+    var coresBarrasArray = ['#ff2a85', '#f5c518', '#00ffff', '#ffffff', '#bf00ff', '#00ff66', '#ff5500'];
 
     var nomesCurtos = {
         "Josuke Higashikata": "Josuke (Parte 4)",
         "Josuke Higashikata (Parte 8)": "Josuke (Parte 8)"
     };
 
-    // ---------- AVALIAÇÕES (GRÁFICO DE COMPARAÇÃO + CARD) ----------
     function buscarAvaliacoes() {
         fetch("/avaliacoes/listar")
             .then(function (resposta) {
@@ -133,7 +132,6 @@
             .then(function (dados) {
                 console.log("Avaliações recebidas: ", dados);
                 
-                // Atualiza o card superior com o total de avaliações feitas
                 qtdUsuarios.innerHTML = dados.length;
 
                 if (dados.length > 0) {
@@ -148,14 +146,16 @@
     function plotarGraficoAvaliacoes(dados) {
         var usuarios = [];
         var notas = [];
+        var coresDinamicas = [];
 
         for (var i = 0; i < dados.length; i++) {
-            // Aceita tanto 'nome' quanto 'nomeUsuario', e tanto 'estrelas' quanto 'nota'
             var nomeUser = dados[i].nome || dados[i].nomeUsuario || "Usuário " + (i + 1);
             var notaUser = dados[i].estrelas || dados[i].nota || 0;
 
             usuarios.push(nomeUser);
             notas.push(notaUser);
+            // Pega uma cor diferente para cada barra
+            coresDinamicas.push(coresBarrasArray[i % coresBarrasArray.length]);
         }
 
         var elementoCanvas = document.getElementById('graficoUsuarios');
@@ -167,10 +167,9 @@
                 datasets: [{
                     label: 'Estrelas',
                     data: notas,
-                    backgroundColor: '#f5c518',
-                    borderColor: '#000000',
-                    borderWidth: 2,
-                    borderRadius: 6
+                    backgroundColor: coresDinamicas,
+                    borderColor: '#ffffff',
+                    borderWidth: 2
                 }]
             },
             options: {
@@ -187,15 +186,15 @@
                         max: 5,
                         ticks: {
                             stepSize: 1,
-                            color: '#e8e0f0'
+                            color: '#ffffff'
                         },
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: '#262626'
                         }
                     },
                     x: {
                         ticks: {
-                            color: '#e8e0f0'
+                            color: '#ffffff'
                         },
                         grid: {
                             display: false
@@ -206,7 +205,6 @@
         });
     }
 
-    // ---------- FAVORITOS (GRÁFICO DE PIZZA + CARD) ----------
     function buscarFavoritos() {
         fetch("/favorito/metricas")
             .then(function (resposta) {
@@ -233,41 +231,75 @@
         var nomes = [];
         var votos = [];
         var cores = [];
+        var totalGeral = 0;
 
         for (var i = 0; i < dados.length; i++) {
             var nomeOriginal = dados[i].nomePersonagem;
+            var nomeCurto = nomesCurtos[nomeOriginal] || nomeOriginal;
 
-            nomes.push(nomesCurtos[nomeOriginal] || nomeOriginal);
+            nomes.push('#' + dados[i].posicao + ' ' + nomeCurto);
             votos.push(dados[i].totalVotos);
-            cores.push(coresPersonagens[nomeOriginal] || '#f5c518');
+            cores.push(coresPersonagens[nomeOriginal] || '#ff2a85');
+            totalGeral += dados[i].totalVotos;
         }
 
         if (dados.length > 0 && dados[0].totalVotos > 0) {
-            personagemTop.innerHTML = nomes[0];
+            personagemTop.innerHTML = nomesCurtos[dados[0].nomePersonagem] || dados[0].nomePersonagem;
         }
 
         new Chart(graficoFavoritos, {
-            type: 'pie',
+            type: 'bar',
             data: {
                 labels: nomes,
                 datasets: [{
                     data: votos,
                     backgroundColor: cores,
-                    borderColor: '#000000',
+                    borderColor: '#ffffff',
                     borderWidth: 2
                 }]
             },
             options: {
+                indexAxis: 'y',
+                responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        position: 'bottom',
-                        labels: {
-                            color: '#e8e0f0',
-                            font: { size: 12, weight: 'bold' }
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (contexto) {
+                                var votosAtuais = contexto.parsed.x;
+                                var percentual = 0;
+                                if (totalGeral > 0) {
+                                    percentual = Math.round(votosAtuais * 100 / totalGeral);
+                                }
+                                return votosAtuais + ' favoritos (' + percentual + '%)';
+                            }
                         }
                     }
                 },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0,
+                            color: '#ffffff'
+                        },
+                        grid: {
+                            color: '#262626'
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: '#ffffff',
+                            font: { size: 10 }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
             }
         });
     }

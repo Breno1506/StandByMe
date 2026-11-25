@@ -21,11 +21,14 @@ function buscarFavoritosPorUsuario(idUsuario) {
 
 function buscarMetricasFavoritos() {
     var instrucaoSql = `
-        SELECT p.nome AS nomePersonagem, COUNT(f.idFavorito) AS totalVotos
+        SELECT
+            DENSE_RANK() OVER (ORDER BY COUNT(f.idFavorito) DESC) AS posicao,
+            p.nome AS nomePersonagem,
+            COUNT(f.idFavorito) AS totalVotos
         FROM Personagem p
         LEFT JOIN favorito f ON p.idPersonagem = f.fkPersonagem
         GROUP BY p.idPersonagem, p.nome
-        ORDER BY totalVotos DESC;
+        ORDER BY posicao, p.nome;
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

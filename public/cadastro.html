@@ -8,14 +8,12 @@
 
   <title>Stand By Me | Cadastro</title>
 
-  <script src="./js/sessao.js"></script>
-  <script src="../js/loading.js"></script>
 
   <link rel="stylesheet" href="./css/estilo.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
+<body class="pagina-formulario" onload="listar()">
   <!--header inicio-->
   <div class="cabecalho">
     <ul class="menu">
@@ -46,6 +44,7 @@
     <div class="container">
       <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
+        <p class="subtitulo">Crie sua conta e entre no universo</p>
         <div class="formulario">
           <!--
                          Para inserir mais um campo, copie uma das inputs abaixo.
@@ -61,16 +60,17 @@
           </div>
           <div class="campo">
             <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
+            <input id="senha_input" type="password" placeholder="******" oninput="validarSenha()" />
+            <div class="regras-senha">
+              <div id="regraTamanho" class="regra">• 8 caracteres ou mais</div>
+              <div id="regraEspecial" class="regra">• 1 caractere especial</div>
+            </div>
           </div>
           <div class="campo">
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
-        </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
         </div>
 
         <div id="div_erros_login"></div>
@@ -84,6 +84,22 @@
 </html>
 
 <script>
+
+  function validarSenha() {
+    var senha = senha_input.value;
+
+    if (senha.length >= 8) {
+      regraTamanho.className = "regra ok";
+    } else {
+      regraTamanho.className = "regra erro";
+    }
+
+    if (/[^a-zA-Z0-9]/.test(senha)) {
+      regraEspecial.className = "regra ok";
+    } else {
+      regraEspecial.className = "regra erro";
+    }
+  }
 
   function cadastrar() {
     // aguardar();
@@ -108,6 +124,13 @@
       return false;
     } else {
       setInterval(sumirMensagem, 5000);
+    }
+
+    if (senhaVar.length < 8 || !/[^a-zA-Z0-9]/.test(senhaVar)) {
+      cardErro.style.display = "block";
+      mensagem_erro.innerHTML = "A senha precisa ter 8 caracteres e 1 caractere especial.";
+      validarSenha();
+      return false;
     }
 
     // Enviando os valores para o servidor

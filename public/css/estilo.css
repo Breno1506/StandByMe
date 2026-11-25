@@ -1,4 +1,4 @@
-              @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
               body {
                 margin: 0;
@@ -8,7 +8,7 @@
               }
 
               :root {
-                --tamanho-header: 0px;
+                --tamanho-header: 80px;
                 --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer));
                 --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer));
                 --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer));
@@ -34,15 +34,6 @@
                 padding-right: 40px;
               }
 
-              .menacing-gif {
-                position: absolute;
-                top: -18px;
-                /* sobe o gif (número menor = mais pra cima) */
-                right: -30px;
-                /* joga pra direita (número menor = mais pra fora) */
-                height: 50px;
-                transform: rotate(10deg);
-              }
 
 
 
@@ -110,8 +101,8 @@
                 background-image: url('../assets/imgs/image\ 16.svg');
                 background-size: cover;
                 background-repeat: no-repeat;
-                background-position: center bottom;
-                min-height: 135vh;
+                background-position: top center;
+                min-height: 100vh;
 
               }
 
@@ -164,7 +155,7 @@
                 width: 100%;
                 height: 80px;
                 /* Espessura da faixa */
-                background-color: whitesmoke;
+                background-color: #fff;
                 /* Cor da faixa (pode trocar por #F2C230 ou #000) */
                 border-top: 5px solid #000;
                 /* Borda preta em cima para dar acabamento */
@@ -214,17 +205,15 @@
               /* SOBRE O SITE (Sessão do Meio) */
 
               .social {
-                background-image: url('../assets/imgs/wallhaven-mlg9p1.png');
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: top center;
+                background-color: #fff;
+                background-image: url('../assets/imgs/iiiiii.png');
+
                 display: flex;
-                position: static;
-                min-height: var(--tamanho-banner);
                 align-items: center;
                 padding: 60px 0;
                 box-sizing: border-box;
-                min-height: 135vh;
+                min-height: 120vh;
+                clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
               }
 
               .social .container {
@@ -279,7 +268,7 @@
                 align-items: center;
                 padding: 60px 0;
                 box-sizing: border-box;
-                min-height: 135vh;
+                min-height: 100vh;
               }
 
               .social2 .container2 {
@@ -331,7 +320,6 @@
               /* BANNER 2 (Com o footer integrado dentro para garantir fundo completo até o fim) */
 
               .banner2 {
-                min-height: 100vh;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -342,7 +330,7 @@
                 background-repeat: no-repeat;
                 box-sizing: border-box;
                 padding-top: 100px;
-                min-height: 135vh;
+                min-height: 130vh;
 
               }
 
@@ -383,7 +371,7 @@
                 background-color: whitesmoke;
                 box-sizing: border-box;
                 padding-top: 100px;
-                min-height: 135vh;
+                min-height: 100vh;
 
               }
 
@@ -414,58 +402,88 @@
                 font-size: 12px;
               }
 
-              /* LOGIN */
+              /* LOGIN E CADASTRO (CENTRALIZADOS E SEM SCROLL) */
+
+              .pagina-formulario {
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              }
 
               .login {
+                flex: 1;
                 height: var(--tamanho-login);
                 background-image: url('../assets/imgs/image\ 14.png');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                padding-top: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 16px 20px;
+                overflow: hidden;
                 box-sizing: border-box;
               }
 
               .cadastro {
+                flex: 1;
                 height: var(--tamanho-login);
                 background-image: url('../assets/imgs/image\ 10.svg');
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                padding-top: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 16px 20px;
+                overflow: hidden;
                 box-sizing: border-box;
               }
 
               .login .container {
                 justify-content: center;
                 align-items: center;
+                width: 100%;
                 height: 100%;
               }
 
               .cadastro .container {
-                justify-content: flex-end;
+                justify-content: center;
                 align-items: center;
+                width: 100%;
                 height: 100%;
               }
 
               .card {
                 width: 100%;
-                max-width: 380px;
-                background-color: whitesmoke;
-                border: 1px solid #eeeeee;
+                max-width: 400px;
+                background-color: #fafafa;
+                border: 2px solid #111111;
                 border-radius: 12px;
-                padding: 30px;
+                padding: 24px 28px;
                 display: flex;
                 flex-direction: column;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+                box-shadow: 8px 8px 0px #ff4fa3;
                 box-sizing: border-box;
               }
 
               .card h2 {
-                margin: 0 0 20px 0;
+                margin: 0 0 6px 0;
                 font-size: 26px;
-                color: #222222;
+                font-weight: 900;
+                color: #111111;
                 text-align: center;
+              }
+
+              .card .subtitulo {
+                margin: 0 0 16px 0;
+                font-size: 12px;
+                font-weight: 800;
+                letter-spacing: 2px;
+                color: #666666;
+                text-align: center;
+                text-transform: uppercase;
               }
 
               .formulario {
@@ -476,24 +494,50 @@
 
               .formulario span {
                 font-size: 13px;
-                color: #777777;
-                margin-bottom: 6px;
+                font-weight: 700;
+                color: #333333;
+                margin-bottom: 4px;
               }
 
               .formulario input {
-                background-color: transparent;
+                background-color: #ffffff;
                 border: none;
-                border-bottom: 2px solid #dddddd;
-                color: #222222;
-                padding: 10px 0;
-                font-size: 15px;
+                border-bottom: 2px solid #cccccc;
+                border-radius: 4px 4px 0 0;
+                color: #111111;
+                padding: 8px 10px;
+                font-size: 14px;
+                text-align: left;
                 outline: none;
-                margin-bottom: 20px;
-                transition: all 0.5s ease;
+                margin-bottom: 14px;
+                transition: border-color 0.25s ease, background-color 0.25s ease;
               }
 
               .formulario input:focus {
+                background-color: #fff5fa;
                 border-bottom-color: #ff4fa3;
+              }
+
+              .regras-senha {
+                margin-top: -8px;
+                margin-bottom: 10px;
+              }
+
+              .regra {
+                font-size: 12px;
+                font-weight: 600;
+                color: #888888;
+                transition: color 0.25s ease, transform 0.25s ease;
+              }
+
+              .regra.ok {
+                color: #1a8f3c;
+                transform: translateX(4px);
+              }
+
+              .regra.erro {
+                color: #d32f2f;
+                transform: translateX(4px);
               }
 
               .formulario select {
@@ -510,40 +554,37 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: start;
-                padding: 5px 0;
+                padding: 3px 0;
               }
 
               .botao {
                 cursor: pointer;
                 font-family: "Barlow", sans-serif;
-                border: 2px solid #ff4fa3;
-                border-radius: 6px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                font-weight: 700;
-                font-size: 16px;
-                color: #ff4fa3;
-                background-color: transparent;
+                border: 2px solid #111111;
+                border-radius: 8px;
+                background-color: #ff4fa3;
+                color: #ffffff;
+                font-weight: 800;
+                font-size: 15px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
                 width: 100%;
-                height: 44px;
-                margin-top: 10px;
-                transition: all 0.3s ease;
+                height: 42px;
+                margin-top: 6px;
+                box-shadow: 4px 4px 0px #111111;
+                transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.2s ease;
               }
 
               .botao:hover {
-                background-color: #ff4fa3;
-                color: white;
-                box-shadow: 0 4px 15px rgba(255, 79, 163, 0.4);
+                background-color: #F2C230;
+                color: #111111;
+                transform: translate(-2px, -2px);
+                box-shadow: 6px 6px 0px #111111;
               }
 
-              .loading-div {
-                width: 50px;
-                margin: auto;
-                display: none;
-              }
-
-              .loading-div img {
-                height: 50px;
-                width: 50px;
+              .botao:active {
+                transform: translate(2px, 2px);
+                box-shadow: 2px 2px 0px #111111;
               }
 
               #div_erros_login {
@@ -746,36 +787,6 @@
                 line-height: 1.5;
               }
 
-              .tela_carregando {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: #0c0814;
-                /* Cor escura do tema do site */
-                color: #f5c518;
-                /* Amarelo estilo JoJo */
-                font-family: 'Exo 2', sans-serif;
-                font-size: 1.5rem;
-                font-weight: bold;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 9999;
-                /* Fica por cima de tudo */
-                opacity: 1;
-                visibility: visible;
-                transition: opacity 1s ease, visibility 0.7s ease;
-              }
-
-              /* Classe que vamos usar via JavaScript para esconder a tela */
-              .tela_carregando.hidden {
-                opacity: 0;
-                visibility: hidden;
-              }
 
               .subtitulo {
                 color: #F2C230;
@@ -1109,38 +1120,6 @@
               }
 
               .fav-gappy {
-                background-color: #f8fafc;
-                color: #0f172a;
-              }
-
-              .fav-jodio {
-                background-color: #7c3aed;
-                color: #ffffff;
-              }
-
-              /* Tela de confirmação */
-              .fav-nome {
-                color: #ffffff;
-                font-size: 56px;
-                text-transform: uppercase;
-                text-shadow: 5px 5px 0 #000000;
-                margin: 0 0 40px 0;
-              }
-
-              .fav-botao {
-                background-color: #f5c518;
+                background-color: #f8f9fa;
                 color: #000000;
-                font-family: inherit;
-                font-size: 22px;
-                font-weight: 800;
-                text-transform: uppercase;
-                padding: 15px 30px;
-                border: 6px solid #000000;
-                box-shadow: 8px 8px 0 #000000;
-                cursor: pointer;
-              }
-
-              .fav-botao:hover {
-                background-color: #000000;
-                color: #f5c518;
               }

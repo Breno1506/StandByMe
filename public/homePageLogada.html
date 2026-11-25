@@ -8,8 +8,6 @@
 
   <title>Stand By Me | Início</title>
 
-  <script src="./js/sessao.js"></script>
-  <script src="../js/loading.js"></script>
 
   <link rel="stylesheet" href="./css/estilo.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -86,14 +84,12 @@
     </div>
   </div>
 
-  <div class="tela_carregando">Carregando...</div>
 
 </body>
 
 </html>
 
 <script>
-  // Pega o nome direto da sessionStorage que o seu sessao.js já guarda no login
   var nomeUsuario = sessionStorage.NOME_USUARIO;
 
   if (nomeUsuario != undefined) {
